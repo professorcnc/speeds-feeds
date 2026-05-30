@@ -1,130 +1,346 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Feeds & Speeds Interactive Worksheet</title>
+  <title>Feeds & Speeds Interactive Activity</title>
+
   <style>
-    body {
-      font-family: Arial;
-      margin: 30px;
+    body { font-family: Arial; margin: 0; }
+    .container { display: flex; }
+
+    .left {
+      width: 70%;
+      padding: 20px;
       background: #f5f6fa;
     }
-    h2 { color: #2f3640; }
-    .box {
-      background: white;
+
+    .right {
+      width: 30%;
       padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+      background: #2f3640;
+      color: white;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
     }
+
+    .question {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+    }
+
     input {
       margin: 5px;
       padding: 5px;
-      width: 120px;
+      width: 100px;
     }
+
     button {
-      margin-top: 10px;
-      padding: 10px;
+      padding: 6px;
+      margin-top: 8px;
       cursor: pointer;
     }
-    .result {
-      font-weight: bold;
+
+    .feedback {
       margin-top: 10px;
+      font-weight: bold;
     }
+
+    h3 { margin-top: 0; }
   </style>
 </head>
 
 <body>
+<div class="container">
 
-<h1>Feeds & Speeds Diagnostic Worksheet</h1>
-<p>Calculate and check your values. Then diagnose if the setup is safe.</p>
+<!-- ================= LEFT SIDE ================= -->
+<div class="left">
 
-<!-- ========================= -->
-<!-- MILLING SECTION -->
-<!-- ========================= -->
-<div class="box">
-  <h2>🟦 Milling Operation</h2>
+<h1>Feeds & Speeds Interactive Worksheet</h1>
 
-  <p>Material: Aluminum | Tool: 0.5" End Mill | Flutes: 4 | SFM: 600</p>
+<!-- QUESTION TEMPLATE USED MULTIPLE TIMES -->
 
-  <label>RPM:</label>
-  <input id="millRPM" type="number"><br>
+<!-- ================= Q1 ================= -->
+<div class="question">
+<h3>Q1 – Milling RPM</h3>
+<p>Aluminum | 0.5" tool | 600 SFM<br>Find RPM</p>
 
-  <label>Chip Load (in/tooth):</label>
-  <input id="millChip" type="number" step="0.001"><br>
+<input id="q1">
+<button onclick="checkQ1()">Check</button>
 
-  <label>Feed Rate (IPM):</label>
-  <input id="millFeed" type="number"><br>
+<div id="r1" class="feedback"></div>
+</div>
 
-  <button onclick="checkMilling()">Check Milling Answer</button>
+<!-- ================= Q2 ================= -->
+<div class="question">
+<h3>Q2 – Milling Feed Rate</h3>
+<p>RPM = 4500 | 4 flutes | chip load = 0.004</p>
 
-  <div id="millResult" class="result"></div>
+<input id="q2">
+<button onclick="checkQ2()">Check</button>
+
+<div id="r2" class="feedback"></div>
+</div>
+
+<!-- ================= Q3 ================= -->
+<div class="question">
+<h3>Q3 – Chip Load Understanding</h3>
+<p>Feed = 80 IPM, RPM = 5000, 4 flutes<br>Find chip load</p>
+
+<input id="q3">
+<button onclick="checkQ3()">Check</button>
+
+<div id="r3" class="feedback"></div>
+</div>
+
+<!-- ================= Q4 ================= -->
+<div class="question">
+<h3>Q4 – Turning RPM</h3>
+<p>Steel | диаметер 2.0" | 300 SFM</p>
+
+<input id="q4">
+<button onclick="checkQ4()">Check</button>
+
+<div id="r4" class="feedback"></div>
+</div>
+
+<!-- ================= Q5 ================= -->
+<div class="question">
+<h3>Q5 – Turning Feed Rate</h3>
+<p>RPM = 600 | Feed = 0.01 in/rev</p>
+
+<input id="q5">
+<button onclick="checkQ5()">Check</button>
+
+<div id="r5" class="feedback"></div>
+</div>
+
+<!-- ================= Q6 ================= -->
+<div class="question">
+<h3>Q6 – Diagnose</h3>
+<p>Tool is burning and chips are powdery</p>
+
+<select id="q6">
+<option value="">Select</option>
+<option value="low">Feed too low</option>
+<option value="high">RPM too high</option>
+<option value="fine">Setup is fine</option>
+</select>
+
+<button onclick="checkQ6()">Check</button>
+
+<div id="r6" class="feedback"></div>
+</div>
+
+<!-- ================= Q7 ================= -->
+<div class="question">
+<h3>Q7 – Diagnose</h3>
+<p>Tool snapped during cut</p>
+
+<select id="q7">
+<option value="">Select</option>
+<option value="low">Feed too low</option>
+<option value="high">Feed too high</option>
+</select>
+
+<button onclick="checkQ7()">Check</button>
+
+<div id="r7" class="feedback"></div>
+</div>
+
+<!-- ================= Q8 ================= -->
+<div class="question">
+<h3>Q8 – Milling Safety</h3>
+<p>Chip load entered: 0.0005</p>
+
+<select id="q8">
+<option value="">Select</option>
+<option value="rub">Rubbing risk</option>
+<option value="break">Tool break risk</option>
+</select>
+
+<button onclick="checkQ8()">Check</button>
+
+<div id="r8" class="feedback"></div>
+</div>
+
+<!-- ================= Q9 ================= -->
+<div class="question">
+<h3>Q9 – Milling Calculation</h3>
+<p>RPM = 3000 | chip load = 0.003 | 3 flutes</p>
+
+<input id="q9">
+<button onclick="checkQ9()">Check</button>
+
+<div id="r9" class="feedback"></div>
+</div>
+
+<!-- ================= Q10 ================= -->
+<div class="question">
+<h3>Q10 – Concept</h3>
+<p>What controls HEAT?</p>
+
+<select id="q10">
+<option value="">Select</option>
+<option value="rpm">Speed (RPM)</option>
+<option value="feed">Feed rate</option>
+</select>
+
+<button onclick="checkQ10()">Check</button>
+
+<div id="r10" class="feedback"></div>
+</div>
+
 </div>
 
 
-<!-- ========================= -->
-<!-- TURNING SECTION -->
-<!-- ========================= -->
-<div class="box">
-  <h2>🟥 Turning (Lathe) Operation</h2>
+<!-- ================= RIGHT SIDE ================= -->
+<div class="right">
 
-  <p>Material: Steel | Diameter: 2.0" | SFM: 300 | Feed: 0.010 in/rev</p>
+<h2>Reference Panel</h2>
 
-  <label>RPM:</label>
-  <input id="latheRPM" type="number"><br>
+<h3>Formulas</h3>
+<p>
+RPM = (SFM × 3.82) / Diameter<br><br>
 
-  <label>Feed Rate (IPM):</label>
-  <input id="latheFeed" type="number"><br>
+Feed (milling) = RPM × flutes × chip load<br><br>
 
-  <button onclick="checkLathe()">Check Turning Answer</button>
+Chip load = Feed / (RPM × flutes)<br><br>
 
-  <div id="latheResult" class="result"></div>
+Feed (turning) = RPM × IPR
+</p>
+
+<h3>Key Concepts</h3>
+<p>
+Speed = Heat<br>
+Feed = Load<br><br>
+
+Low chip load = rubbing → heat<br>
+High chip load = breakage
+</p>
+
+<h3>Typical Chip Loads</h3>
+<p>
+Aluminum: 0.003 – 0.006<br>
+Steel: 0.0015 – 0.003
+</p>
+
+</div>
 </div>
 
 
-<!-- ========================= -->
-<!-- DIAGNOSTIC SECTION -->
-<!-- ========================= -->
-<div class="box">
-  <h2>⚠️ Diagnose the Problem</h2>
-
-  <p>Scenario: Tool is getting hot and discolored.</p>
-
-  <label>What is likely the issue?</label><br>
-  <select id="diagnose">
-    <option value="">--Select--</option>
-    <option value="speed">RPM too high</option>
-    <option value="feed">Feed too low (rubbing)</option>
-    <option value="correct">Correct setup</option>
-  </select>
-
-  <button onclick="checkDiagnosis()">Submit Answer</button>
-
-  <div id="diagnoseResult" class="result"></div>
-</div>
-
-
-<!-- ========================= -->
-<!-- SCRIPT -->
-<!-- ========================= -->
+<!-- ================= SCRIPT ================= -->
 <script>
 
-function checkMilling() {
+// Q1
+function checkQ1(){
+let ans = document.getElementById("q1").value;
+let correct = 4584;
+if(Math.abs(ans - correct) < 200){
+r1.innerHTML = "✅ Correct RPM";
+}else{
+r1.innerHTML = "❌ Incorrect – check SFM formula";
+}
+}
 
-  let rpm = document.getElementById("millRPM").value;
-  let chip = document.getElementById("millChip").value;
-  let feed = document.getElementById("millFeed").value;
+// Q2
+function checkQ2(){
+let ans = document.getElementById("q2").value;
+let correct = 72;
+if(Math.abs(ans - correct) < 5){
+r2.innerHTML = "✅ Correct feed";
+}else{
+r2.innerHTML = "❌ Use RPM × flutes × chip load";
+}
+}
 
-  let correctRPM = 4584;
-  let correctFeed = rpm * 4 * chip;
+// Q3
+function checkQ3(){
+let ans = document.getElementById("q3").value;
+let correct = 0.004;
+if(Math.abs(ans - correct) < 0.001){
+r3.innerHTML = "✅ Correct chip load";
+}else{
+r3.innerHTML = "❌ Feed ÷ (RPM × flutes)";
+}
+}
 
-  let message = "";
+// Q4
+function checkQ4(){
+let ans = document.getElementById("q4").value;
+let correct = 573;
+if(Math.abs(ans - correct) < 50){
+r4.innerHTML = "✅ Correct RPM";
+}else{
+r4.innerHTML = "❌ Check diameter + SFM";
+}
+}
 
-  if (Math.abs(rpm - correctRPM) < 200) {
-    message += "✅ RPM is reasonable.<br>";
-  } else {
-    message += "❌ RPM is off. Check SFM formula.<br>";
-  }
+// Q5
+function checkQ5(){
+let ans = document.getElementById("q5").value;
+let correct = 6;
+if(Math.abs(ans - correct) < 1){
+r5.innerHTML = "✅ Correct feed";
+}else{
+r5.innerHTML = "❌ Feed = RPM × IPR";
+}
+}
 
-  if (Math.abs(feed - correctFeed) < 10) {
-    message += "✅ Feed calculation looks good.<br>";
-  } else {
+// Q6
+function checkQ6(){
+let ans = document.getElementById("q6").value;
+if(ans === "low"){
+r6.innerHTML = "✅ Correct: rubbing → heat";
+}else{
+r6.innerHTML = "❌ Think chip formation";
+}
+}
+
+// Q7
+function checkQ7(){
+let ans = document.getElementById("q7").value;
+if(ans === "high"){
+r7.innerHTML = "✅ Correct: chip too thick";
+}else{
+r7.innerHTML = "❌ Low feed doesn’t break tools";
+}
+}
+
+// Q8
+function checkQ8(){
+let ans = document.getElementById("q8").value;
+if(ans === "rub"){
+r8.innerHTML = "✅ Correct: rubbing condition";
+}else{
+r8.innerHTML = "❌ Too low chip load = rubbing, not breakage";
+}
+}
+
+// Q9
+function checkQ9(){
+let ans = document.getElementById("q9").value;
+let correct = 27;
+if(Math.abs(ans - correct) < 3){
+r9.innerHTML = "✅ Correct";
+}else{
+r9.innerHTML = "❌ Recalculate feed";
+}
+}
+
+// Q10
+function checkQ10(){
+let ans = document.getElementById("q10").value;
+if(ans === "rpm"){
+r10.innerHTML = "✅ Correct: speed generates heat";
+}else{
+r10.innerHTML = "❌ Feed = mechanical load, not heat";
+}
+}
+
+</script>
+
+</body>
+</html>
