@@ -1,31 +1,314 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Test Worksheet</title>
+  <title>Feeds & Speeds Worksheet</title>
+
+  <style>
+    body { font-family: Arial; margin: 0; }
+
+    .container { display: flex; }
+
+    .left {
+      width: 70%;
+      padding: 20px;
+      background: #f0f2f5;
+    }
+
+    .right {
+      width: 30%;
+      padding: 20px;
+      background: #1e272e;
+      color: white;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .question {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+    }
+
+    input, select {
+      padding: 5px;
+      margin-top: 5px;
+      width: 120px;
+    }
+
+    button {
+      margin-top: 8px;
+      padding: 6px;
+      cursor: pointer;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
 
-<h2>Q1 – Milling RPM</h2>
-<p>0.5" tool, 600 SFM</p>
+<div class="container">
+
+<!-- LEFT SIDE -->
+<div class="left">
+
+<h1>Feeds & Speeds Interactive Worksheet</h1>
+<p>Complete each question and check your answer.</p>
+
+<!-- Q1 -->
+<div class="question">
+<h3>Q1: Milling RPM</h3>
+<p>Material: Aluminum | Tool: 0.5" | SFM: 600</p>
 
 <input id="q1">
 <button onclick="checkQ1()">Check</button>
 
 <div id="r1"></div>
+</div>
+
+<!-- Q2 -->
+<div class="question">
+<h3>Q2: Milling Feed Rate</h3>
+<p>RPM = 4500 | Flutes = 4 | Chip load = 0.004</p>
+
+<input id="q2">
+<button onclick="checkQ2()">Check</button>
+
+<div id="r2"></div>
+</div>
+
+<!-- Q3 -->
+<div class="question">
+<h3>Q3: Chip Load</h3>
+<p>Feed = 80 IPM, RPM = 5000, 4 flutes</p>
+
+<input id="q3">
+<button onclick="checkQ3()">Check</button>
+
+<div id="r3"></div>
+</div>
+
+<!-- Q4 -->
+<div class="question">
+<h3>Q4: Turning RPM</h3>
+<p>Material: Steel | Diameter = 2.0" | SFM = 300</p>
+
+<input id="q4">
+<button onclick="checkQ4()">Check</button>
+
+<div id="r4"></div>
+</div>
+
+<!-- Q5 -->
+<div class="question">
+<h3>Q5: Lathe Feed</h3>
+<p>RPM = 600 | Feed = 0.010 in/rev</p>
+
+<input id="q5">
+<button onclick="checkQ5()">Check</button>
+
+<div id="r5"></div>
+</div>
+
+<!-- Q6 -->
+<div class="question">
+<h3>Q6: Diagnose</h3>
+<p>Tool is overheating and surface is shiny</p>
+
+<select id="q6">
+<option value="">Select</option>
+<option value="rubbing">Feed too low</option>
+<option value="speed">Speed too high</option>
+</select>
+
+<button onclick="checkQ6()">Check</button>
+
+<div id="r6"></div>
+</div>
+
+<!-- Q7 -->
+<div class="question">
+<h3>Q7: Tool Breakage</h3>
+<p>Tool snapped instantly</p>
+
+<select id="q7">
+<option value="">Select</option>
+<option value="low">Feed too low</option>
+<option value="high">Feed too high</option>
+</select>
+
+<button onclick="checkQ7()">Check</button>
+
+<div id="r7"></div>
+</div>
+
+<!-- Q8 -->
+<div class="question">
+<h3>Q8: Chip Load Safety</h3>
+<p>Chip load = 0.0005</p>
+
+<select id="q8">
+<option value="">Select</option>
+<option value="rubbing">Rubbing condition</option>
+<option value="break">Breakage risk</option>
+</select>
+
+<button onclick="checkQ8()">Check</button>
+
+<div id="r8"></div>
+</div>
+
+<!-- Q9 -->
+<div class="question">
+<h3>Q9: Milling Feed</h3>
+<p>RPM = 3000 | Flutes = 3 | Chip load = 0.003</p>
+
+<input id="q9">
+<button onclick="checkQ9()">Check</button>
+
+<div id="r9"></div>
+</div>
+
+<!-- Q10 -->
+<div class="question">
+<h3>Q10: Concept</h3>
+<p>What controls HEAT in machining?</p>
+
+<select id="q10">
+<option value="">Select</option>
+<option value="speed">Speed (RPM)</option>
+<option value="feed">Feed rate</option>
+</select>
+
+<button onclick="checkQ10()">Check</button>
+
+<div id="r10"></div>
+</div>
+
+</div>
+
+
+<!-- RIGHT SIDE -->
+<div class="right">
+
+<h2>Reference</h2>
+
+<h3>Formulas</h3>
+
+<p>
+RPM = (SFM × 3.82) / Diameter<br><br>
+
+Feed (milling) = RPM × flutes × chip load<br><br>
+
+Chip load = Feed ÷ (RPM × flutes)<br><br>
+
+Feed (turning) = RPM × IPR
+</p>
+
+<h3>Rules</h3>
+
+<p>
+Speed → controls heat<br>
+Feed → controls load<br><br>
+
+Low chip load → rubbing (bad)<br>
+High chip load → breakage (bad)
+</p>
+
+<h3>Quick Values</h3>
+
+<p>
+Aluminum chip load: 0.003–0.006<br>
+Steel chip load: 0.001–0.003
+</p>
+
+</div>
+
+</div>
 
 
 <script>
-function checkQ1(){
-  let ans = document.getElementById("q1").value;
-  let correct = 4584;
 
-  if(Math.abs(ans - correct) < 200){
-    document.getElementById("r1").innerHTML = "✅ Correct";
-  } else {
-    document.getElementById("r1").innerHTML = "❌ Try again";
-  }
+function checkQ1(){
+let ans = document.getElementById("q1").value;
+if(Math.abs(ans - 4584) < 200)
+document.getElementById("r1").innerHTML = "✅ Correct RPM";
+else
+document.getElementById("r1").innerHTML = "❌ Use RPM = (SFM × 3.82)/D";
 }
+
+function checkQ2(){
+let ans = document.getElementById("q2").value;
+if(Math.abs(ans - 72) < 5)
+document.getElementById("r2").innerHTML = "✅ Correct feed rate";
+else
+document.getElementById("r2").innerHTML = "❌ Feed = RPM × flutes × chip load";
+}
+
+function checkQ3(){
+let ans = document.getElementById("q3").value;
+if(Math.abs(ans - 0.004) < 0.001)
+document.getElementById("r3").innerHTML = "✅ Correct chip load";
+else
+document.getElementById("r3").innerHTML = "❌ Chip load = Feed ÷ (RPM × flutes)";
+}
+
+function checkQ4(){
+let ans = document.getElementById("q4").value;
+if(Math.abs(ans - 573) < 50)
+document.getElementById("r4").innerHTML = "✅ Correct RPM";
+else
+document.getElementById("r4").innerHTML = "❌ Diameter affects speed — recheck formula";
+}
+
+function checkQ5(){
+let ans = document.getElementById("q5").value;
+if(Math.abs(ans - 6) < 1)
+document.getElementById("r5").innerHTML = "✅ Correct feed rate";
+else
+document.getElementById("r5").innerHTML = "❌ Feed = RPM × IPR";
+}
+
+function checkQ6(){
+if(document.getElementById("q6").value === "rubbing")
+document.getElementById("r6").innerHTML = "✅ Correct: low feed causes rubbing + heat";
+else
+document.getElementById("r6").innerHTML = "❌ Think chip formation, not just speed";
+}
+
+function checkQ7(){
+if(document.getElementById("q7").value === "high")
+document.getElementById("r7").innerHTML = "✅ Correct: chip too thick → break";
+else
+document.getElementById("r7").innerHTML = "❌ Low feed doesn’t break tools";
+}
+
+function checkQ8(){
+if(document.getElementById("q8").value === "rubbing")
+document.getElementById("r8").innerHTML = "✅ Correct: too low chip load → rubbing";
+else
+document.getElementById("r8").innerHTML = "❌ Breakage happens at HIGH chip load";
+}
+
+function checkQ9(){
+let ans = document.getElementById("q9").value;
+if(Math.abs(ans - 27) < 3)
+document.getElementById("r9").innerHTML = "✅ Correct";
+else
+document.getElementById("r9").innerHTML = "❌ Recalculate: RPM × flutes × chip load";
+}
+
+function checkQ10(){
+if(document.getElementById("q10").value === "speed")
+document.getElementById("r10").innerHTML = "✅ Correct: speed creates heat";
+else
+document.getElementById("r10").innerHTML = "❌ Feed creates force, not heat";
+}
+
 </script>
 
 </body>
